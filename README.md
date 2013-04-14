@@ -1,0 +1,1 @@
+[Please see http://torbjoernk.github.io/deep_const_ptr for the documentation.](http://torbjoernk.github.io/deep_const_ptr)
