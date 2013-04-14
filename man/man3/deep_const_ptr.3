@@ -1,0 +1,152 @@
+.TH "deep_const_ptr< pointerTypeT >" 3 "Sun Apr 14 2013" "deep_const_ptr" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+deep_const_ptr< pointerTypeT > \- 
+.PP
+An extended smart pointer for enabling deep (true) constness with pimpl idiom\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <deep_const_ptr\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBdeep_const_ptr\fP (typename pointerTypeT::element_type *ptr)"
+.br
+.RI "\fIStandard Constructor\&. \fP"
+.ti -1c
+.RI "pointerTypeT::element_type * \fBoperator->\fP ()"
+.br
+.RI "\fIProvides a non-const pointer to the managed object\&. \fP"
+.ti -1c
+.RI "const pointerTypeT::element_type * \fBoperator->\fP () const "
+.br
+.RI "\fIProvides a const pointer to the managed object\&. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<typename pointerTypeT>class deep_const_ptr< pointerTypeT >"
+An extended smart pointer for enabling deep (true) constness with pimpl idiom\&. 
+
+\fBAuthor:\fP
+.RS 4
+Torbjörn Klatt opensource@torbjoern-klatt.de 
+.RE
+.PP
+\fBDate:\fP
+.RS 4
+2013-04-14 
+.RE
+.PP
+\fBCopyright:\fP
+.RS 4
+MIT License
+.RE
+.PP
+This smart pointer is intended to be used with classes implementing the pimpl idiom with their private members in a private class\&. With the classic naive approach there is no way of ensuring const access of the private members in const member function through the private pointer\&.
+.PP
+Managing the private pointer via \fBdeep_const_ptr\fP allows for usage of C++11 std::unique_ptr and std::shared_ptr and provides true const access of the private members via the private pointer\&.
+.PP
+Example usage: 
+.PP
+.nf
+class MyClass {
+  private:
+    class Private;
+    deep_const_ptr< std::shared_ptr< MyClass::Private > > d;
+
+  public:
+    MyClass() : 
+      d( deep_const_ptr< std::shared_ptr< MyClass::Private > >( new MyClass::Private )
+    {}
+    
+    void setInt( int i ) {
+      d->privateInt = i;             // uses non-const operator->()
+    }
+
+    void print() const {
+      std::cout << 'My int is '
+                << d->privateInt     // uses const operator->()
+                << std::endl;
+    }
+};
+
+class MyClass::Private {
+  public:
+    explicit Private() : privateInt(0) {}
+
+    int privateInt;
+};
+
+.fi
+.PP
+ 
+.PP
+\fBTemplate Parameters:\fP
+.RS 4
+\fIpointerTypeT\fP The actual smart pointer to derive from (usually \fCstd::shared_ptr<T>\fP or \fCstd::unique_ptr<T>\fP\&. 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+That smart pointer needs to implement \fCT* operator->()\fP and provide the public member \fCelement_type\fP for accessing the pointer type of the managed object\&. 
+.RE
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<typename pointerTypeT > \fBdeep_const_ptr\fP< pointerTypeT >::\fBdeep_const_ptr\fP (typename pointerTypeT::element_type *ptr)\fC [inline]\fP, \fC [explicit]\fP"
+
+.PP
+Standard Constructor\&. This calls the standard ctor of the derived smart pointer 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP Actual pointer, which will be accessed by the owner(s) of this 
+.RE
+.PP
+\fBTemplate Parameters:\fP
+.RS 4
+\fIpointerTypeT\fP The underlying smart pointer 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename pointerTypeT > pointerTypeT::element_type* \fBdeep_const_ptr\fP< pointerTypeT >::operator-> ()\fC [inline]\fP"
+
+.PP
+Provides a non-const pointer to the managed object\&. \fBReturns:\fP
+.RS 4
+Non-const pointer to the managed object 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+Calls the underlying smart pointer's operator \fCT* operator->()\fP 
+.RE
+.PP
+
+.SS "template<typename pointerTypeT > const pointerTypeT::element_type* \fBdeep_const_ptr\fP< pointerTypeT >::operator-> () const\fC [inline]\fP"
+
+.PP
+Provides a const pointer to the managed object\&. \fBReturns:\fP
+.RS 4
+Const pointer to the managed object 
+.RE
+.PP
+\fBNote:\fP
+.RS 4
+Calls the underlying smart pointer's operator \fCT* operator->()\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for deep_const_ptr from the source code\&.

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.3.1"/>
+<title>deep_const_ptr: deep_const_ptr&lt; pointerTypeT &gt; Class Template Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a>  </div>
+  <div class="headertitle">
+<div class="title">deep_const_ptr&lt; pointerTypeT &gt; Class Template Reference</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>An extended smart pointer for enabling deep (true) constness with pimpl idiom.  
+ <a href="index.html#details">More...</a></p>
+
+<p><code>#include &lt;deep_const_ptr.hpp&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4fb8189acb0cb0d38c6ab8ec786060fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index.html#a4fb8189acb0cb0d38c6ab8ec786060fe">deep_const_ptr</a> (typename pointerTypeT::element_type *ptr)</td></tr>
+<tr class="memdesc:a4fb8189acb0cb0d38c6ab8ec786060fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Standard Constructor.  <a href="#a4fb8189acb0cb0d38c6ab8ec786060fe">More...</a><br/></td></tr>
+<tr class="separator:a4fb8189acb0cb0d38c6ab8ec786060fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7781b0de521c03427c3744da499786bf"><td class="memItemLeft" align="right" valign="top">pointerTypeT::element_type *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index.html#a7781b0de521c03427c3744da499786bf">operator-&gt;</a> ()</td></tr>
+<tr class="memdesc:a7781b0de521c03427c3744da499786bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a non-const pointer to the managed object.  <a href="#a7781b0de521c03427c3744da499786bf">More...</a><br/></td></tr>
+<tr class="separator:a7781b0de521c03427c3744da499786bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c74e285c325643f39ec34c6bb14cc1d"><td class="memItemLeft" align="right" valign="top">const pointerTypeT::element_type *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="index.html#a9c74e285c325643f39ec34c6bb14cc1d">operator-&gt;</a> () const </td></tr>
+<tr class="memdesc:a9c74e285c325643f39ec34c6bb14cc1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides a const pointer to the managed object.  <a href="#a9c74e285c325643f39ec34c6bb14cc1d">More...</a><br/></td></tr>
+<tr class="separator:a9c74e285c325643f39ec34c6bb14cc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename pointerTypeT&gt;<br/>
+class deep_const_ptr&lt; pointerTypeT &gt;</h3>
+
+<p>An extended smart pointer for enabling deep (true) constness with pimpl idiom. </p>
+<dl class="section author"><dt>Author</dt><dd>Torbjörn Klatt <a href="#" onclick="location.href='mai'+'lto:'+'ope'+'ns'+'our'+'ce'+'@to'+'rb'+'joe'+'rn'+'-kl'+'at'+'t.d'+'e'; return false;">opens<span style="display: none;">.nosp@m.</span>ourc<span style="display: none;">.nosp@m.</span>e@tor<span style="display: none;">.nosp@m.</span>bjoe<span style="display: none;">.nosp@m.</span>rn-kl<span style="display: none;">.nosp@m.</span>att.<span style="display: none;">.nosp@m.</span>de</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2013-04-14 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>MIT License</dd></dl>
+<p>This smart pointer is intended to be used with classes implementing the pimpl idiom with their private members in a private class. With the classic naive approach there is no way of ensuring const access of the private members in const member function through the private pointer.</p>
+<p>Managing the private pointer via <a class="el" href="index.html" title="An extended smart pointer for enabling deep (true) constness with pimpl idiom.">deep_const_ptr</a> allows for usage of C++11 std::unique_ptr and std::shared_ptr and provides true const access of the private members via the private pointer.</p>
+<p>Example usage: </p>
+<div class="fragment"><div class="line"><span class="keyword">class </span>MyClass {</div>
+<div class="line">  <span class="keyword">private</span>:</div>
+<div class="line">    <span class="keyword">class </span>Private;</div>
+<div class="line">    <a class="code" href="index.html" title="An extended smart pointer for enabling deep (true) constness with pimpl idiom.">deep_const_ptr&lt; std::shared_ptr&lt; MyClass::Private &gt;</a> &gt; d;</div>
+<div class="line"></div>
+<div class="line">  <span class="keyword">public</span>:</div>
+<div class="line">    MyClass() : </div>
+<div class="line">      d( <a class="code" href="index.html" title="An extended smart pointer for enabling deep (true) constness with pimpl idiom.">deep_const_ptr</a>&lt; std::shared_ptr&lt; MyClass::Private &gt; &gt;( new MyClass::Private )</div>
+<div class="line">    {}</div>
+<div class="line">    </div>
+<div class="line">    <span class="keywordtype">void</span> setInt( <span class="keywordtype">int</span> i ) {</div>
+<div class="line">      d-&gt;privateInt = i;             <span class="comment">// uses non-const operator-&gt;()</span></div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordtype">void</span> print()<span class="keyword"> const </span>{</div>
+<div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;My int is &quot;</span></div>
+<div class="line">                &lt;&lt; d-&gt;privateInt     <span class="comment">// uses const operator-&gt;()</span></div>
+<div class="line">                &lt;&lt; std::endl;</div>
+<div class="line">    }</div>
+<div class="line">};</div>
+<div class="line"></div>
+<div class="line"><span class="keyword">class </span>MyClass::Private {</div>
+<div class="line">  <span class="keyword">public</span>:</div>
+<div class="line">    <span class="keyword">explicit</span> Private() : privateInt(0) {}</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordtype">int</span> privateInt;</div>
+<div class="line">};</div>
+</div><!-- fragment --> <dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">pointerTypeT</td><td>The actual smart pointer to derive from (usually <code>std::shared_ptr&lt;T&gt;</code> or <code>std::unique_ptr&lt;T&gt;</code>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>That smart pointer needs to implement <code>T* operator-&gt;()</code> and provide the public member <code>element_type</code> for accessing the pointer type of the managed object. </dd></dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a4fb8189acb0cb0d38c6ab8ec786060fe"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename pointerTypeT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="index.html">deep_const_ptr</a>&lt; pointerTypeT &gt;::<a class="el" href="index.html">deep_const_ptr</a> </td>
+          <td>(</td>
+          <td class="paramtype">typename pointerTypeT::element_type *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Standard Constructor. </p>
+<p>This calls the standard ctor of the derived smart pointer </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ptr</td><td>Actual pointer, which will be accessed by the owner(s) of this </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">pointerTypeT</td><td>The underlying smart pointer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a7781b0de521c03427c3744da499786bf"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename pointerTypeT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">pointerTypeT::element_type* <a class="el" href="index.html">deep_const_ptr</a>&lt; pointerTypeT &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Provides a non-const pointer to the managed object. </p>
+<dl class="section return"><dt>Returns</dt><dd>Non-const pointer to the managed object </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Calls the underlying smart pointer's operator <code>T* operator-&gt;()</code> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9c74e285c325643f39ec34c6bb14cc1d"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename pointerTypeT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const pointerTypeT::element_type* <a class="el" href="index.html">deep_const_ptr</a>&lt; pointerTypeT &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Provides a const pointer to the managed object. </p>
+<dl class="section return"><dt>Returns</dt><dd>Const pointer to the managed object </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Calls the underlying smart pointer's operator <code>T* operator-&gt;()</code> </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.3.1
+</small></address>
+</body>
+</html>
